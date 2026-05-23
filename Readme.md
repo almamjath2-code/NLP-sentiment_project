@@ -1,225 +1,338 @@
-# 📘 Sentiment Analysis Project
+# 😊 SentimentScope AI Project
 
-# 📌 Project Overview
+# 📌 Overview
 
-This project performs **Sentiment Analysis** using Natural Language Processing (NLP) to classify text into:
+SentimentScope AI is a Machine Learning and NLP-based web application that predicts sentiment from user text.
 
-* Positive 😊
-* Negative 😡
-* Neutral 😐
+The application classifies text into:
 
-The system uses text preprocessing, TF-IDF feature extraction, and a machine learning model (**LinearSVC**) to predict sentiment.
+- Positive 😊
+- Negative 😡
+- Neutral 😐
 
-A **Streamlit web app** is built for real-time predictions.
+The project includes text preprocessing, TF-IDF feature engineering, machine learning model training, FastAPI backend development, Docker containerization, AWS deployment, and CI/CD automation using GitHub Actions.
 
 ---
 
 # 🌐 Live Demo
+http://sentimentscope-ai.s3-website.ap-south-1.amazonaws.com
 
-👉 https://nlp-sentimentel-project-bqhuuhestxutsyvasprkf3.streamlit.app/
+
+# 🐳 Dockerized Application
+
+This project is fully containerized using Docker to provide:
+
+- Consistent runtime environment
+- Easy deployment
+- No dependency conflicts
+- Cloud-ready infrastructure
+
+# 📦 Run Using Docker
+
+# 1️⃣ Build Docker Image
+
+```bash
+docker build -t sentimentscope-ai .
+```
+
+# 2️⃣ Run Docker Container
+
+```bash
+docker run -p 8080:8080 sentimentscope-ai
+```
+
+# 📄 Sample Dockerfile
+
+```dockerfile
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+EXPOSE 8080
+
+CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8080"]
+```
+
+---
+
+# ☁️ Deployment (AWS + Docker)
+
+# 🌐 Frontend
+
+- Hosted on AWS S3 Static Website Hosting
+- Built using HTML, CSS, JavaScript
+
+# ⚙️ Backend API
+
+- Built using FastAPI
+- Containerized using Docker
+- Deployed on AWS Elastic Beanstalk
+
+# 🚀 Deployment Flow
+
+```text
+GitHub Repository
+      ↓
+GitHub Actions CI/CD
+      ↓
+Docker Build
+      ↓
+AWS Elastic Beanstalk
+      ↓
+Backend API Running
+      ↓
+Frontend (S3) calls API
+```
 
 ---
 
 # 🗂 Dataset
 
-* Text data (user reviews/comments)
-* Target: Sentiment (Positive / Negative / Neutral)
+The dataset contains text reviews, comments, and user opinions.
+
+# 🎯 Target Labels
+
+- Positive
+- Negative
+- Neutral
 
 ---
 
-# 🛠 Libraries & Modules Used
+# 🛠 Tools & Technologies
 
-```python
-import nltk
-import pandas as pd
-import contractions
-import re                      # ✅ for text cleaning (regex)
-from collections import Counter  # ✅ for word frequency
-import matplotlib.pyplot as plt
-from wordcloud import WordCloud
-
-from nltk.corpus import stopwords
-from nltk.corpus import wordnet
-from nltk import pos_tag
-from nltk.stem import WordNetLemmatizer
-
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.svm import LinearSVC
-
-import joblib
-```
-
----
-
-# ⚠️ Important Notes (Very Important)
-
-* `re` and `collections` are **built-in Python modules** → ❌ do NOT add in `requirements.txt`
-* `nltk.download()` → ❌ do NOT include in requirements
-* These must be handled separately
-
----
-
-# 📥 NLTK Setup
-
-Run this **once before using the project**:
-
-```python
-import nltk
-nltk.download('stopwords')
-nltk.download('wordnet')
-```
+- Python
+- Pandas
+- NumPy
+- NLTK
+- Scikit-learn
+- FastAPI
+- Joblib
+- Docker
+- AWS S3
+- AWS Elastic Beanstalk
+- GitHub Actions
 
 ---
 
 # 🧹 Text Preprocessing
 
-* Lowercasing text
-* Removing HTML tags using `re`
-* Expanding contractions (`don't → do not`)
-* Removing special characters using regex (`re`)
-* Removing stopwords
-* Lemmatization using WordNet
+The preprocessing pipeline includes:
+
+- Lowercasing text
+- Removing HTML tags
+- Expanding contractions
+- Removing special characters
+- Stopword removal
+- Lemmatization
+- Text normalization
 
 ---
 
 # 📊 Exploratory Data Analysis (EDA)
 
-* Class distribution
-* Word frequency using `collections.Counter`
-* WordCloud visualization ☁️
-* Text length analysis
+- Sentiment distribution analysis
+- Word frequency analysis
+- WordCloud visualization
+- Text length analysis
+- Common keyword analysis
 
 ---
 
-# 🧠 Feature Engineering
+# 🤖 Machine Learning Model
 
-TF-IDF (Term Frequency - Inverse Document Frequency):
+# 📌 Feature Engineering
 
 ```python
 TfidfVectorizer()
 ```
 
----
+# 📌 Model Used
 
-# 🤖 Model Training
-
-Model Used: **Linear Support Vector Classifier (LinearSVC)**
-
-Steps:
-
-* Train/Test split
-* Model training
-* Prediction
+```python
+LinearSVC()
+```
 
 ---
 
 # 📈 Model Performance
 
 | Dataset | Accuracy | Precision | Recall | F1-Score |
-| ------- | -------- | --------- | ------ | -------- |
-| Train   | 0.7394   | 0.7414    | 0.7110 | 0.7197   |
-| Test    | 0.7114   | 0.7081    | 0.6802 | 0.6882   |
+|----------|-----------|------------|---------|-----------|
+| Train | 0.7394 | 0.7414 | 0.7110 | 0.7197 |
+| Test | 0.7114 | 0.7081 | 0.6802 | 0.6882 |
 
-✔ Good Fit (no overfitting)
+# ✅ Result
 
----
-
-# 📊 Confusion Matrix
-
-Model performs well with small misclassification between similar sentiments.
+Good model performance with minimal overfitting.
 
 ---
 
-# 💾 Model Saving
+# 🚀 Web Application
+
+Interactive AI-powered sentiment prediction application.
+
+# 📌 Features
+
+- Real-time sentiment prediction
+- FastAPI REST API
+- Responsive frontend UI
+- Dockerized backend
+- AWS cloud deployment
+
+---
+
+# ⚙️ API Endpoint
+
+# 📌 Predict Sentiment
+
+## POST `/predict`
+
+# Request
+
+```json
+{
+  "text": "I love this project"
+}
+```
+
+# Response
+
+```json
+{
+  "text": "I love this project",
+  "prediction": "Positive 😊"
+}
+```
+
+---
+
+# 📥 NLTK Setup
+
+Run once before using the application:
 
 ```python
-joblib.dump(model, "sentiment_model.pkl")
-joblib.dump(tfidf, "tfidf_vectorizer.pkl")
-```
+import nltk
 
----
-
-# 🌐 Application (sentiment_app.py)
-
-Main application file: **sentiment_app.py**
-
-## 📌 What it does:
-
-* Load trained model
-* Load TF-IDF vectorizer
-* Accept user input
-* Clean text (using `re` + preprocessing pipeline)
-* Predict sentiment
-* Display result (😊 😡 😐)
-
----
-
-# ▶️ Run Application
-
-```bash
-pip install -r requirements.txt
-streamlit run sentiment_app.py
-```
-
----
-
-# ⚙️ Requirements
-
-```bash
-pip install pandas nltk contractions scikit-learn matplotlib wordcloud joblib
+nltk.download('stopwords')
+nltk.download('wordnet')
 ```
 
 ---
 
 # 📈 Project Workflow
 
-* Load dataset
-* Data cleaning (using `re`)
-* Stopword removal
-* Lemmatization
-* EDA using `Counter`
-* Feature extraction (TF-IDF)
-* Model training
-* Evaluation
-* Deployment (Streamlit app)
+- Load dataset
+- Data preprocessing
+- Text cleaning
+- Stopword removal
+- Lemmatization
+- TF-IDF vectorization
+- Model training
+- Model evaluation
+- Docker containerization
+- AWS deployment
+- Frontend integration
 
 ---
 
-# 💡 Insights
+# 💡 Key Insights
 
-* Keywords strongly influence sentiment
-* Negative texts contain strong emotional words
-* Neutral texts are less expressive
-* Preprocessing improves accuracy significantly
+- Text preprocessing improves model accuracy
+- Emotional keywords strongly affect predictions
+- Neutral sentences are less expressive
+- TF-IDF improves feature representation
+
+---
+
+# 🔄 CI/CD Automation
+
+This project uses GitHub Actions for automatic deployment.
+
+# 🚀 CI/CD Flow
+
+```text
+Git Push
+   ↓
+GitHub Actions
+   ↓
+Build Docker Container
+   ↓
+Deploy to AWS Elastic Beanstalk
+```
 
 ---
 
 # ⚡ Future Improvements
 
-* Use BERT / LSTM
-* Improve emoji & slang handling
-* Hyperparameter tuning
-* Deploy to cloud
+- Add BERT / Transformer models
+- Improve emoji detection
+- Add multilingual sentiment support
+- Add user authentication
+- Deploy using Kubernetes
+- Add monitoring dashboard
 
 ---
 
 # 📁 Project Structure
 
+```text
 sentiment_analysis_project/
 │
-├─ data/
-├─ notebooks/
-├─ sentiment_app.py
-├─ sentiment_model.pkl
-├─ tfidf_vectorizer.pkl
-├─ requirements.txt
-└─ README.md
+├── backend/
+│   ├── api.py
+│   ├── clean_text.py
+│   ├── clean_lemmitezer.py
+│   ├── sentiment_model.pkl
+│   ├── tfidf_vectorizer.pkl
+│   ├── requirements.txt
+│   └── Dockerfile
+│
+├── frontend/
+│   └── index.html
+│
+├── .github/
+│   └── workflows/
+│       └── frontend deploy.yml
+│       └── backend deploy.yml
+└── README.md
+```
+
+---
+
+# 🤝 Contributing
+
+- Fork repository
+- Create feature branch
+- Commit changes
+- Push branch
+- Create Pull Request
+
+---
+
+# 📜 License
+
+MIT License
 
 ---
 
 # 👨‍💻 Author
 
-**Amjath**
-📧 [almamjath2@gmail.com](mailto:almamjath2@gmail.com)
+## Amjath
+
+- AI & NLP Developer
+- FastAPI Developer
+- Machine Learning Enthusiast
+
+# 🌐 GitHub
+
+:https://github.com/almamjath2-code/NLP-sentiment_project.git
+
+# 📧 Email
+
+almamjath2@gmail.com

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SentimentScope AI</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #0f172a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+
+        .container {
+            width: 400px;
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #38bdf8;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            resize: none;
+            outline: none;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: #38bdf8;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0ea5e9;
+        }
+
+        .loading {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>SentimentScope AI</h1>
+
+        <textarea id="text" placeholder="Enter your text..."></textarea>
+
+        <button onclick="predictSentiment()">
+            Analyze Sentiment
+        </button>
+
+        <div class="loading" id="loading"></div>
+
+        <div class="result" id="result"></div>
+
+    </div>
+
+    <script>
+
+        async function predictSentiment() {
+
+            const text =
+                document.getElementById("text").value;
+
+            const resultDiv =
+                document.getElementById("result");
+
+            const loadingDiv =
+                document.getElementById("loading");
+
+            resultDiv.innerHTML = "";
+            loadingDiv.innerHTML = "Analyzing...";
+
+            try {
+
+                const response = await fetch(
+                    "http://sentimentnlpprojectfill-env.eba-m6dmew4u.ap-south-1.elasticbeanstalk.com/predict",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json",
+                            "x-api-key": "mysecretapikey123"
+                        },
+
+                        body: JSON.stringify({
+                            text: text
+                        })
+                    }
+                );
+
+                const data = await response.json();
+
+                loadingDiv.innerHTML = "";
+
+                if (response.ok) {
+
+                    resultDiv.innerHTML =
+                        "Prediction: " + data.prediction;
+
+                } else {
+
+                    resultDiv.innerHTML =
+                        "Error: " + data.detail;
+
+                }
+
+            } catch (error) {
+
+                loadingDiv.innerHTML = "";
+
+                resultDiv.innerHTML =
+                    "Server Error";
+
+                console.log(error);
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+# 📌 Project Description
+
+This project is a Sentiment Analysis system built using Natural Language Processing (NLP) and machine learning techniques. The system analyzes textual data and classifies it into positive, negative, or neutral sentiments.
+
+The workflow begins with text preprocessing, where raw text is cleaned by removing noise such as HTML tags, special characters, and stopwords, and by applying techniques like contraction expansion and lemmatization to standardize the data.
+
+Next, Exploratory Data Analysis (EDA) is performed to understand the dataset, including class distribution, word frequency, and text patterns. The cleaned text is then transformed into numerical features using TF-IDF (Term Frequency–Inverse Document Frequency).
+
+A Linear Support Vector Classifier (LinearSVC) is trained on these features to perform sentiment classification. The model is evaluated using metrics such as accuracy, precision, recall, and F1-score, achieving reliable performance with good generalization.
+
+Additionally, the project includes an app.py application, which allows users to input text and receive real-time sentiment predictions.
+
+This project demonstrates a complete end-to-end NLP pipeline, from data preprocessing to model deployment.

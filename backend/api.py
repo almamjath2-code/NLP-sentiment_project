@@ -37,7 +37,7 @@ class TextRequest(BaseModel):
 # Home route
 @app.get("/")
 def home():
-    return {"message": "Sentiment API is running"}
+    return {"message": "Sentiment API is running well"}
 
 
 # Prediction route
